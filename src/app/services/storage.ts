@@ -4,10 +4,15 @@ import { Injectable } from 'angular2/core';
 export class Storage{
     
     getStorage(key: string){
-        return sessionStorage.getItem(key);
+        const result = sessionStorage.getItem(key);
+        return result ? JSON.parse(result) : null;
     }
     
-    setStorage(key, obj){
-        sessionStorage.setItem(key, obj);
+    setStorage(key : string, obj : Object){
+        sessionStorage.setItem(key, JSON.stringify(obj));
+    }
+    
+    removeStorage(key : string){
+        sessionStorage.removeItem(key);
     }
 }

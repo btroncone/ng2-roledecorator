@@ -11,8 +11,24 @@ import Login from './views/login';
 		<header>
       		<h1 class="title">{{ title }}</h1>
 			<nav>
-				<a [routerLink]=" ['Home'] ">Home</a>
-				<a [routerLink]=" ['Away'] ">Away</a>
+				<div>
+                    <a [routerLink]="['Home']">
+                        Home
+                    </a>
+                    -Authentication Required
+                </div>
+				<div>
+                    <a [routerLink]="['Away']">
+                        Away
+                    </a>
+                    -No Authentication Required
+                </div>
+                <div>
+                    <a [routerLink]="['Login']">
+                        Login
+                    </a>
+                    -No Authentication Required
+                </div>
 			</nav>
     	</header>
 		<main>

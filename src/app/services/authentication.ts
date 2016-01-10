@@ -19,11 +19,15 @@ export class Authentication{
                     roles : ['ADMIN']
                  });
                  resolve(true);
-            }, 1000);
+            }, 100);
         });
     }
     
-    get currentUser() : CurrentUser{
+    logOut(){
+        this._storageService.removeStorage(this._userKey);
+    }
+    
+    get currentUser() : CurrentUser {
         return this._storageService.getStorage(this._userKey);
     }
     

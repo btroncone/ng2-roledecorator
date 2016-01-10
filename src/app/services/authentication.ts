@@ -1,14 +1,17 @@
 import { Injectable } from 'angular2/core';
+import { Subject } from 'rxjs';
 import { Storage } from './storage';
 import { CurrentUser } from '../interfaces/common';
 
 @Injectable()
 export class Authentication{
-    private _storageService : Storage;
-    private _userKey = "CURRENT_USER";
+    _storageService : Storage;
+    _userKey = "CURRENT_USER";
+    currentUserInfo : Subject<CurrentUser> = new Subject<CurrentUser>();
     
     constructor(storageService : Storage){
         this._storageService = storageService;
+        //this.currentUserInfo.;
     }
     
     authenticate(name : string, password: string){
@@ -27,8 +30,10 @@ export class Authentication{
         this._storageService.removeStorage(this._userKey);
     }
     
-    get currentUser() : CurrentUser {
-        return this._storageService.getStorage(this._userKey);
+    get userRoles() : Array<string> {
+        const user = this._storageService.getStorage(this._userKey);
+        return user ? user.roles : [];
+        
     }
     
     private setCurrentUser(user : CurrentUser){

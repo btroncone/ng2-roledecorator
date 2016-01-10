@@ -7,11 +7,19 @@ import { CurrentUser } from '../interfaces/common';
 
 export const Roles = (...rolesAllowed : Array<string>) => {
     return CanActivate((next: ComponentInstruction, prev: ComponentInstruction) => {
-        return isAllowedAccess(...rolesAllowed);
+        const injector = Injector.resolveAndCreate([Authentication, Storage]);
+        const authentication : Authentication = injector.get(Authentication);
+        const userRoles : Array<string> = authentication.userRoles();
+        return isAllowedAccess(rolesAllowed, userRoles);
     });
 };
 
-const isAllowedAccess = (...rolesAllowed: Array<string>) => {
-    
-    return false;
+const isAllowedAccess = (rolesAllowed: Array<string>, currentRoles: Array<string>) => {
+    const intersectedRoles = currentRoles.reduce((acc, curr) => {
+        return [
+            ...acc,
+            ...rolesAllowed.filter(role => role.trim().toUpperCase() === curr.trim().toUpperCase())
+        ]
+    }, []);
+    return intersectedRoles.length > 0;
 };

@@ -5,22 +5,20 @@ import { CurrentUser } from '../interfaces/common';
 
 @Injectable()
 export class Authentication{
-    _storageService : Storage;
-    _userKey = "CURRENT_USER";
-    currentUserInfo : Subject<CurrentUser> = new Subject<CurrentUser>();
-    
+    private _storageService : Storage;
+    private _userKey : string = "CURRENT_USER";
+
     constructor(storageService : Storage){
         this._storageService = storageService;
-        //this.currentUserInfo.;
     }
     
     authenticate(name : string, password: string){
         return new Promise((resolve, reject) => {
             setTimeout(() => {
-                this.setCurrentUser({
+                this.currentUser = {
                     name,
                     roles : ['ADMIN']
-                 });
+                 };
                  resolve(true);
             }, 100);
         });
@@ -32,11 +30,14 @@ export class Authentication{
     
     get userRoles() : Array<string> {
         const user = this._storageService.getStorage(this._userKey);
-        return user ? user.roles : [];
-        
+        return user ? user.roles : [];     
     }
     
-    private setCurrentUser(user : CurrentUser){
+    get currentUser() : CurrentUser {
+        return this._storageService.getStorage(this._userKey);
+    }
+    
+    set currentUser(user : CurrentUser){
         this._storageService.setStorage(this._userKey, user);
     }
      

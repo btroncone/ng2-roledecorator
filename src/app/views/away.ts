@@ -5,5 +5,5 @@ import { Component } from 'angular2/core';
 	template: `<h1>{{title}}</h1>`
 })
 export default class Away{
-    public title : string = "Away View!";
+    title : string = "Away View!";
 }

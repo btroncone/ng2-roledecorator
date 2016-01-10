@@ -9,7 +9,7 @@ export const Roles = (...rolesAllowed : Array<string>) => {
     return CanActivate((next: ComponentInstruction, prev: ComponentInstruction) => {
         const injector = Injector.resolveAndCreate([Authentication, Storage]);
         const authentication : Authentication = injector.get(Authentication);
-        const userRoles : Array<string> = authentication.userRoles();
+        const userRoles : Array<string> = authentication.userRoles;
         return isAllowedAccess(rolesAllowed, userRoles);
     });
 };

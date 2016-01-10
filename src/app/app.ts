@@ -3,6 +3,7 @@ import {RouteConfig, Router, ROUTER_DIRECTIVES} from 'angular2/router';
 import Home from './views/home';
 import Away from './views/away';
 import Login from './views/login';
+import { Authentication } from './services/authentication';
 
 @Component({
 	selector: `app`,
@@ -15,7 +16,7 @@ import Login from './views/login';
                     <a [routerLink]="['Home']">
                         Home
                     </a>
-                    -Authentication Required
+                    -Requires Admin Role
                 </div>
 				<div>
                     <a [routerLink]="['Away']">
@@ -27,16 +28,12 @@ import Login from './views/login';
                     <a [routerLink]="['Login']">
                         Login
                     </a>
-                    -No Authentication Required
                 </div>
 			</nav>
     	</header>
 		<main>
 			<router-outlet></router-outlet>
 		</main>
-		<footer>
-		    <a href="http://www.briantroncone.com">BrianTroncone.com</a>
-		</footer>
 	`
 })
 @RouteConfig([
@@ -45,7 +42,8 @@ import Login from './views/login';
 	{ path: '/away', component: Away, name: 'Away'}
 ])
 export class App {
-	public title;
+	title : string;
+    
 	constructor(){
 		this.title = "Angular 2 - Role Decorator Demo";
 	}

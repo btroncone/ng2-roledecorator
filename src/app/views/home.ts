@@ -5,8 +5,8 @@ import { Roles } from '../decorators/roles';
 	selector: 'home',
 	template: `<h1>{{title}}</h1>`
 })
-@Roles('TEST')
+@Roles('ADMIN')
 export default class Home{ 
-	public title = "Home View!";
+	title : string = "Home View!";
 }
 
